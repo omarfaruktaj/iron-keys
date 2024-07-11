@@ -31,8 +31,8 @@ export default function NavItems() {
               isPending
                 ? ""
                 : isActive
-                ? "bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
-                : "hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                ? "bg-primary-foreground text-primary px-3 py-2 rounded-md text-sm font-medium"
+                : "hover:bg-primary-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
             }
           >
             {route.level}
