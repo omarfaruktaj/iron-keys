@@ -1,5 +1,5 @@
 import { useGetFeaturedProductsQuery } from "../product-api";
-import FeaturedProduct from "./featured-product-item";
+import FeaturedProduct from "./product-item";
 
 export default function FeaturedProducts() {
   const {

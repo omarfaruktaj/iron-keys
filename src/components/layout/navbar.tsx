@@ -10,9 +10,11 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <div>
-              <Link to="/" className=" text-xl font-bold">
-                Iron Keys
-              </Link>
+              <Button asChild variant={"ghost"}>
+                <Link to="/" className=" text-xl font-bold uppercase">
+                  Iron Keys
+                </Link>
+              </Button>
             </div>
           </div>
 

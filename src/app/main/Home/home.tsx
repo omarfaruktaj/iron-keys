@@ -4,6 +4,7 @@ import HomeFeaturedProdcuts from "./hore-featured-products";
 import Brands from "./brands";
 import Reviews from "./reviews";
 import Benefits from "./benefits";
+import Subscription from "./subscription";
 export default function Home() {
   return (
     <div>
@@ -13,6 +14,7 @@ export default function Home() {
       <Brands />
       <Reviews />
       <Benefits />
+      <Subscription />
     </div>
   );
 }
