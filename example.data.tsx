@@ -62,3 +62,85 @@
 //       title: "Secure Shopping",
 //       description: "Shop with confidence with secure payment",
 //     },
+
+// const reviews = [
+//   {
+//     id: 1,
+//     name: "John Doe",
+//     avatar: "avatar1.jpg",
+//     rating: 4.5,
+//     review:
+//       "Absolutely love the feel of this keyboard! The mechanical switches are so satisfying to type on.",
+//   },
+//   {
+//     id: 2,
+//     name: "Jane Smith",
+//     avatar: "avatar2.jpg",
+//     rating: 4.0,
+//     review:
+//       "Great build quality and very responsive keys. Perfect for gaming!",
+//   },
+//   {
+//     id: 3,
+//     name: "Michael Johnson",
+//     avatar: "avatar3.jpg",
+//     rating: 4.7,
+//     review:
+//       "The RGB lighting is stunning and customizable. Makes my setup look amazing!",
+//   },
+//   {
+//     id: 4,
+//     name: "Emily Brown",
+//     avatar: "avatar4.jpg",
+//     rating: 4.2,
+//     review:
+//       "Comfortable wrist rest and tactile feedback. Solid choice for long typing sessions.",
+//   },
+//   {
+//     id: 5,
+//     name: "Alex Clark",
+//     avatar: "avatar5.jpg",
+//     rating: 4.3,
+//     review:
+//       "Compact size without sacrificing functionality. Fits well on my desk.",
+//   },
+//   {
+//     id: 6,
+//     name: "Sarah White",
+//     avatar: "avatar6.jpg",
+//     rating: 4.8,
+//     review:
+//       "Easy-to-use software for programming macros. Boosts my productivity.",
+//   },
+//   {
+//     id: 7,
+//     name: "David Lee",
+//     avatar: "avatar7.jpg",
+//     rating: 4.6,
+//     review:
+//       "Keycaps feel premium and durable. No signs of wear after months of use.",
+//   },
+//   {
+//     id: 8,
+//     name: "Sophia Miller",
+//     avatar: "avatar8.jpg",
+//     rating: 4.0,
+//     review:
+//       "Noise level is just right, not too loud. Doesn't disturb others around me.",
+//   },
+//   {
+//     id: 9,
+//     name: "Chris Wilson",
+//     avatar: "avatar9.jpg",
+//     rating: 4.4,
+//     review: "Cable management is well thought out. Keeps my workspace neat.",
+//   },
+//   {
+//     id: 10,
+//     name: "Emma Davis",
+//     avatar: "avatar10.jpg",
+//     rating: 4.9,
+//     review:
+//       "Overall, a fantastic keyboard for the price. Highly recommend it!",
+//   },
+// ];
