@@ -20,7 +20,7 @@ interface FeaturedProductProps {
     rating?: number;
   };
 }
-export default function FeaturedProduct({ product }: FeaturedProductProps) {
+export default function ProductItem({ product }: FeaturedProductProps) {
   return (
     <Card>
       <CardHeader>

@@ -45,7 +45,7 @@ export default function Footer() {
           </div>
         </div>
         <div>
-          <h3 className="text-2xl font-bold mb-4 text-center">Follow Us</h3>
+          <h3 className="text-2xl font-bold mb-4 ">Follow Us</h3>
           <div className="flex flex-col justify-center items-start  space-y-4">
             <a
               href="https://facebook.com"
