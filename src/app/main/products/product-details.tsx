@@ -1,13 +1,16 @@
 import { Button } from "@/components/ui/button";
+import { addProductToCart } from "@/redux/features/cart/cartSlice";
 import { useGetSingleProductQuery } from "@/redux/features/products/product-api";
+import { useAppDispatch } from "@/redux/hooks";
 import { Rating } from "@smastrom/react-rating";
-import React from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
 
 const ProductDetailsPage = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
 
   const {
     data: product,
@@ -16,11 +19,11 @@ const ProductDetailsPage = () => {
   } = useGetSingleProductQuery(productId!);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <p>Loading...</p>;
   }
 
   if (error) {
-    return <div>Something went very wrong!</div>;
+    return <p>Something went very wrong!</p>;
   }
 
   if (!product) {
@@ -47,20 +50,27 @@ const ProductDetailsPage = () => {
           </div>
           <div className="md:w-1/2 mt-8 md:mt-0">
             <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-            <p className="text-muted-foreground mb-2">Brand: {product.brand}</p>
-            <p className="text-muted-foreground mb-2">
+            <div className="text-muted-foreground mb-2">
+              Brand: {product.brand}
+            </div>
+            <div className="text-muted-foreground mb-2">
               Available Quantity: {product.availableQuantity}
-            </p>
-            <p className="text-muted-foreground mb-2">${product.price}</p>
-            <p className=" mb-4">
+            </div>
+            <div className="text-muted-foreground mb-2">${product.price}</div>
+            <div className=" mb-4">
               <Rating
                 style={{ maxWidth: 120 }}
                 value={product.rating ?? 0}
                 readOnly
               />
-            </p>
-            <p className="text-muted-foreground mb-6">{product.description}</p>
-            <Button disabled={product.availableQuantity === 0}>
+            </div>
+            <div className="text-muted-foreground mb-6">
+              {product.description}
+            </div>
+            <Button
+              onClick={() => dispatch(addProductToCart(product))}
+              disabled={product.availableQuantity === 0}
+            >
               {product.availableQuantity === 0 ? "Out of Stock" : "Add to Cart"}
             </Button>
           </div>
