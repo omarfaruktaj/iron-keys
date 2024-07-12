@@ -51,8 +51,17 @@ const productApi = baseApi.injectEndpoints({
     }),
 
     getProducts: builder.query<Data, QueryString>({
-      query: ({ page = 1, limit = 10 }) =>
-        `/products?page=${page}&limit=${limit}`,
+      query: ({
+        page = 1,
+        limit = 10,
+        searchTerm = "",
+        minPrice,
+        maxPrice,
+        sort,
+      }) =>
+        `/products?page=${page}&limit=${limit}&searchTerm=${searchTerm}${
+          minPrice && `&price[gte]=${minPrice}`
+        }${maxPrice && `&price[lte]=${maxPrice}`}${sort && `&sort=${sort}`}`,
       transformResponse: (response: { data: Data }) => response.data,
 
       providesTags: (result) =>

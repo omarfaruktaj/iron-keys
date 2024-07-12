@@ -6,7 +6,7 @@ export default function MainLayout() {
   return (
     <div>
       <Navbar />
-      <div className=" mx-2  md:container md:mx-auto">
+      <div className=" mx-2  md:container md:mx-auto pt-24">
         <Outlet />
       </div>
       <Footer />

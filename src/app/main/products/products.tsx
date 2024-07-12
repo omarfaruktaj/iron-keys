@@ -1,132 +1,230 @@
-import ProductItem from "@/redux/features/products/components/product-item";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useGetProductsQuery } from "@/redux/features/products/product-api";
+import ProductItem from "@/redux/features/products/components/product-item";
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-} from "@/components/ui/pagination";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { MdKeyboardArrowLeft, MdNavigateNext } from "react-icons/md";
-import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import ProductPagination from "./product-pagination";
 
 export default function Products() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const { data, isLoading, error } = useGetProductsQuery({ page: currentPage });
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: "1",
+    searchTerm: "",
+    min_price: "",
+    max_price: "",
+    sort_by: "",
+  });
 
-  if (isLoading) return <>Loadding...</>;
+  const currentPage = Number(searchParams.get("page") || 1);
+  const searchTerm = searchParams.get("searchTerm") || "";
+  const minPrice = searchParams.get("min_price");
+  const maxPrice = searchParams.get("max_price");
+  const sort = searchParams.get("sort_by") || "";
 
-  if (error) return <h4>No Product Found</h4>;
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+  const [debouncedMinPrice, setDebouncedMinPrice] = useState(minPrice);
+  const [debouncedMaxPrice, setDebouncedMaxPrice] = useState(maxPrice);
+  const [filterValues, setFilterValues] = useState({
+    searchTerm: searchTerm,
+    minPrice: minPrice || "",
+    maxPrice: maxPrice || "",
+    sort: sort,
+  });
 
-  const { page, totalPage, next, prev } = data?.pagination || {};
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+      setDebouncedMinPrice(minPrice);
+      setDebouncedMaxPrice(maxPrice);
+    }, 500);
 
-  const handlePreviousPage = () => {
-    if (page! > 1) {
-      setCurrentPage(page! - 1);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm, minPrice, maxPrice]);
+
+  const { data, isLoading, error } = useGetProductsQuery({
+    minPrice: debouncedMinPrice,
+    maxPrice: debouncedMaxPrice,
+    sort,
+    page: currentPage,
+    searchTerm: debouncedSearchTerm,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= (data?.pagination?.totalPage ?? 0)) {
+      setSearchParams((prev) => {
+        prev.set("page", String(newPage));
+        return prev;
+      });
     }
   };
 
-  const handleNextPage = () => {
-    if (page! < totalPage!) {
-      setCurrentPage(page! + 1);
-    }
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchParams((prev) => {
+      prev.set("searchTerm", e.target.value);
+      prev.set("page", "1");
+
+      return prev;
+    });
+    setFilterValues((prev) => ({
+      ...prev,
+      page: 1,
+      searchTerm: e.target.value,
+    }));
   };
 
-  const handlePage = (page: number) => {
-    setCurrentPage(page);
+  const handleMinPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchParams((prev) => {
+      prev.set("min_price", e.target.value);
+      prev.set("page", "1");
+
+      return prev;
+    });
+    setFilterValues((prev) => ({ ...prev, page: 1, minPrice: e.target.value }));
+  };
+
+  const handleMaxPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchParams((prev) => {
+      prev.set("max_price", e.target.value);
+      prev.set("page", "1");
+      return prev;
+    });
+    setFilterValues((prev) => ({ ...prev, page: 1, maxPrice: e.target.value }));
+  };
+
+  const handleSortBy = (value: string) => {
+    setSearchParams((prev) => {
+      prev.set("sort_by", value);
+      return prev;
+    });
+    setFilterValues((prev) => ({ ...prev, sort: value }));
+  };
+
+  const clearFilters = () => {
+    setSearchParams({
+      page: "1",
+      searchTerm: "",
+      min_price: "",
+      max_price: "",
+      sort_by: "",
+    });
+    setFilterValues({
+      searchTerm: "",
+      minPrice: "",
+      maxPrice: "",
+      sort: "",
+    });
+  };
+
+  const displayProducts = () => {
+    if (!data || !data.products.length || error) {
+      return <div className="text-xl font-semibold p-4">No Product Found!</div>;
+    }
+
+    return data.products.map((product) => (
+      <ProductItem key={product._id} product={product} />
+    ));
+  };
+
+  const displayPagination = () => {
+    if (!data || !data.products.length || error) {
+      return;
+    }
+
+    return (
+      <ProductPagination data={data} handlePageChange={handlePageChange} />
+    );
   };
 
   return (
-    <div className=" px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Products</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {data?.products?.map((product) => (
-          <ProductItem key={product._id} product={product} />
-        ))}
+    <div className="px-4 py-8 relative">
+      <div className="mb-5">
+        <h1 className="text-3xl font-bold mb-2">Products</h1>
+        <Separator />
       </div>
-      <Pagination className="my-12 flex justify-end ">
-        <PaginationContent>
-          <PaginationItem>
-            <Button
-              variant={"ghost"}
-              onClick={handlePreviousPage}
-              disabled={page === 1}
-            >
-              <div className="flex items-center justify-center">
-                <MdKeyboardArrowLeft size={20} /> <div>Prevous</div>
-              </div>
-            </Button>
-          </PaginationItem>
 
-          {prev && (
-            <PaginationItem>
-              {prev && (
-                <Button
-                  onClick={() => handlePage(prev)}
-                  variant={"ghost"}
-                  size={"icon"}
-                >
-                  {prev}
-                </Button>
-              )}
-            </PaginationItem>
-          )}
+      <div className="flex flex-col md:flex-row">
+        <div className="w-full md:w-1/4">
+          <div className="p-4 bg-gray-50 rounded-lg shadow-md mb-6 md:mb-0 sticky top-24 left-0">
+            <h2 className="text-xl font-semibold mb-4">Filters</h2>
 
-          <PaginationItem>
-            <Button size={"sm"}>{page}</Button>
-          </PaginationItem>
-
-          {next && (
-            <PaginationItem>
-              <Button
-                onClick={() => handlePage(next)}
-                size={"icon"}
-                variant={"ghost"}
-              >
-                {next}
-              </Button>
-            </PaginationItem>
-          )}
-          <PaginationItem>
-            <div
-              className={cn(
-                (totalPage === 1 ||
-                  totalPage === page ||
-                  totalPage === (page || 1) + 1) &&
-                  "hidden"
-              )}
-            >
-              <PaginationEllipsis />
+            <div className="mb-6">
+              <Input
+                onChange={handleSearch}
+                type="text"
+                value={filterValues.searchTerm}
+                placeholder="Search by name or brand"
+              />
             </div>
-          </PaginationItem>
-          <Button
-            onClick={() => handlePage(totalPage || 1)}
-            variant={"ghost"}
-            size={"icon"}
-            className={cn(
-              (totalPage === 1 ||
-                totalPage === page ||
-                totalPage === (page || 1) + 1) &&
-                "hidden"
-            )}
-          >
-            {totalPage}
-          </Button>
-          <PaginationItem>
-            <Button
-              variant={"ghost"}
-              onClick={handleNextPage}
-              disabled={page === totalPage}
-            >
-              <div className="flex items-center justify-center">
-                <div>Next</div> <MdNavigateNext size={20} />
+
+            <div className="mb-6">
+              <span className="block mb-2 font-medium">Price Range:</span>
+              <div className="flex items-center">
+                <Input
+                  type="number"
+                  onChange={handleMinPrice}
+                  value={filterValues.minPrice}
+                  min={1}
+                  placeholder="Min"
+                  className="w-1/2 mr-2"
+                />
+                <Input
+                  type="number"
+                  onChange={handleMaxPrice}
+                  value={filterValues.maxPrice}
+                  min={1}
+                  placeholder="Max"
+                  className="w-1/2"
+                />
               </div>
-            </Button>
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+            </div>
+
+            <div className="mb-6">
+              <span className="block mb-2 font-medium">Sort by:</span>
+              <Select onValueChange={handleSortBy} value={filterValues.sort}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="price">Price: Low to High</SelectItem>
+                  <SelectItem value="-price">Price: High to Low</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex justify-end">
+              <Button
+                onClick={clearFilters}
+                variant="destructive"
+                className="w-full font-semibold"
+              >
+                Clear Filters
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full md:w-3/4 px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {displayProducts()}
+          </div>
+        </div>
+      </div>
+      {displayPagination()}
     </div>
   );
 }

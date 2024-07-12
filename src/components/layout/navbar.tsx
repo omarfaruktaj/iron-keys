@@ -5,36 +5,42 @@ import { FiShoppingCart } from "react-icons/fi";
 
 export default function Navbar() {
   return (
-    <nav className="bg-background p-4 border-b-2">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <div>
-              <Button asChild variant={"ghost"}>
-                <Link to="/" className=" text-xl font-bold uppercase">
-                  Iron Keys
-                </Link>
+    <div className="w-full fixed z-50">
+      <nav className="bg-background p-4 border-b-2 ">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <div>
+                <Button asChild variant={"ghost"}>
+                  <Link to="/" className=" text-xl font-bold uppercase">
+                    Iron Keys
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            <div className=" flex items-center justify-center gap-x-4">
+              <div className="hidden md:block">
+                <NavItems />
+              </div>
+              <Button
+                variant={"ghost"}
+                size={"icon"}
+                className="rounded-full  "
+              >
+                <div className="relative">
+                  <Link to="/cart">
+                    <FiShoppingCart className="mr-1 h-5 w-5" />
+                    <span className="absolute -top-3 -right-2 bg-red-600 rounded-full text-white text-xs px-1.5 py-0.5">
+                      0
+                    </span>
+                  </Link>
+                </div>
               </Button>
             </div>
           </div>
-
-          <div className=" flex items-center justify-center gap-x-4">
-            <div className="hidden md:block">
-              <NavItems />
-            </div>
-            <Button variant={"ghost"} size={"icon"} className="rounded-full  ">
-              <div className="relative">
-                <Link to="/cart">
-                  <FiShoppingCart className="mr-1 h-5 w-5" />
-                  <span className="absolute -top-3 -right-2 bg-red-600 rounded-full text-white text-xs px-1.5 py-0.5">
-                    0
-                  </span>
-                </Link>
-              </div>
-            </Button>
-          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }
