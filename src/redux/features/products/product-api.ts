@@ -74,7 +74,19 @@ const productApi = baseApi.injectEndpoints({
             ]
           : [],
     }),
+    getSingleProduct: builder.query<Product, string>({
+      query: (productId) => `/products/${productId}`,
+      transformResponse: (response: { data: Product }) => response.data,
+
+      providesTags: (result) => {
+        return result ? [{ type: "Product", id: result._id }] : [];
+      },
+    }),
   }),
 });
 
-export const { useGetFeaturedProductsQuery, useGetProductsQuery } = productApi;
+export const {
+  useGetFeaturedProductsQuery,
+  useGetProductsQuery,
+  useGetSingleProductQuery,
+} = productApi;
