@@ -15,7 +15,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { emptyCart, selectCart } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { useHandleOrderMutation } from "@/redux/features/products/product-api";
 import toast from "react-hot-toast";
 
@@ -61,7 +60,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async () => {
     try {
       const orderData = cart.map((item) => ({
         product: item.product._id,

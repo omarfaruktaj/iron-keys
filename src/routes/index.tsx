@@ -6,6 +6,8 @@ import Products from "@/app/main/products/products";
 import Chackout from "@/app/main/chackout/chackout";
 import { createBrowserRouter } from "react-router-dom";
 import Success from "@/app/main/chackout/success";
+import Dashboard from "@/app/dashboard/dashboard";
+import CreateProdct from "@/app/dashboard/create-product";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
       {
         path: "/success",
         element: <Success />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/products/create",
+        element: <CreateProdct />,
       },
     ],
   },

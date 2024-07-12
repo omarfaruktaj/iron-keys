@@ -7,7 +7,6 @@ import { selectCart } from "@/redux/features/cart/cartSlice";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,

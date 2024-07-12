@@ -37,6 +37,17 @@ export interface Order {
   product: string;
   quantity: number;
 }
+const buildQueryString = (params: QueryString) => {
+  const queryString = new URLSearchParams();
+
+  for (const key in params) {
+    if (params[key] !== undefined) {
+      queryString.append(key, String(params[key]));
+    }
+  }
+
+  return queryString.toString();
+};
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -56,17 +67,32 @@ const productApi = baseApi.injectEndpoints({
     }),
 
     getProducts: builder.query<Data, QueryString>({
-      query: ({
-        page = 1,
-        limit = 12,
-        searchTerm = "",
-        minPrice,
-        maxPrice,
-        sort,
-      }) =>
-        `/products?page=${page}&limit=${limit}&searchTerm=${searchTerm}${
-          minPrice && `&price[gte]=${minPrice}`
-        }${maxPrice && `&price[lte]=${maxPrice}`}${sort && `&sort=${sort}`}`,
+      query: (params) => {
+        const {
+          page = 1,
+          limit = 12,
+          searchTerm = "",
+          minPrice,
+          maxPrice,
+          sort,
+        } = params;
+
+        const queryParams: QueryString = {
+          page,
+          limit,
+          searchTerm,
+          sort,
+        };
+
+        if (minPrice) queryParams["price[gte]"] = minPrice;
+        if (maxPrice) queryParams["price[lte]"] = maxPrice;
+
+        const queryString = buildQueryString(queryParams);
+
+        return {
+          url: `/products?${queryString}`,
+        };
+      },
       transformResponse: (response: { data: Data }) => response.data,
 
       providesTags: (result) =>
@@ -97,6 +123,28 @@ const productApi = baseApi.injectEndpoints({
         response.data,
       invalidatesTags: ["Product"],
     }),
+    deleteProduct: builder.mutation<{ message: string }, string>({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "DELETE",
+      }),
+      transformResponse: (response: { data: { message: string } }) =>
+        response.data,
+      invalidatesTags: ["Product"],
+    }),
+    createProduct: builder.mutation<{ product: Product }, Omit<Product, "_id">>(
+      {
+        query: (newProduct) => ({
+          url: "/products",
+          method: "POST",
+          body: newProduct,
+        }),
+        transformResponse: (response: {
+          data: { message: string; product: Product };
+        }) => response.data,
+        invalidatesTags: ["Product"],
+      }
+    ),
   }),
 });
 
@@ -105,4 +153,6 @@ export const {
   useGetProductsQuery,
   useGetSingleProductQuery,
   useHandleOrderMutation,
+  useDeleteProductMutation,
+  useCreateProductMutation,
 } = productApi;

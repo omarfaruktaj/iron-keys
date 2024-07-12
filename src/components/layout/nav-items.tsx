@@ -26,7 +26,7 @@ export default function NavItems() {
 
   return (
     <div>
-      <div className=" flex flex-col md:flex-row items-start md:space-x-4">
+      <div className=" flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-4">
         {routes.map((route) => (
           <NavLink
             key={route.href}
@@ -35,8 +35,8 @@ export default function NavItems() {
               isPending
                 ? ""
                 : isActive
-                ? "bg-primary-foreground text-primary px-3 py-2 rounded-md text-sm font-medium"
-                : "hover:bg-primary-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+                ? "bg-primary-foreground w-full md:w-auto text-primary px-3 py-2 rounded-md text-sm font-medium"
+                : "hover:bg-primary-foreground w-full md:w-auto hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
             }
           >
             {route.level}
