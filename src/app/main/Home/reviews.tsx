@@ -93,14 +93,11 @@ export default function Reviews() {
         opts={{
           align: "start",
         }}
-        className="w-full "
+        className="w-full  "
       >
         <CarouselContent>
           {reviews.map((review) => (
-            <CarouselItem
-              key={review.id}
-              className="md:basis-1/2 lg:basis-1/3 "
-            >
+            <CarouselItem key={review.id} className="md:basis-1/2 lg:basis-1/3">
               <Card className="h-full">
                 <CardContent className="flex flex-col items-center justify-center gap-2 mt-4 ">
                   <Avatar>
@@ -117,8 +114,10 @@ export default function Reviews() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <div className="hidden md:block">
+          <CarouselPrevious />
+          <CarouselNext />
+        </div>
       </Carousel>
     </section>
   );

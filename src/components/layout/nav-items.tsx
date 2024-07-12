@@ -18,11 +18,15 @@ export default function NavItems() {
       level: "Contact Us",
       href: "/contact",
     },
+    {
+      level: "Dashboard ",
+      href: "/dashboard",
+    },
   ];
 
   return (
     <div>
-      <div className="flex space-x-4">
+      <div className=" flex flex-col md:flex-row items-start md:space-x-4">
         {routes.map((route) => (
           <NavLink
             key={route.href}

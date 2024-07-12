@@ -4,6 +4,15 @@ import { Button } from "../ui/button";
 import { FiShoppingCart } from "react-icons/fi";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCart } from "@/redux/features/cart/cartSlice";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { RiMenu3Line } from "react-icons/ri";
 
 export default function Navbar() {
   const cart = useAppSelector(selectCart);
@@ -43,6 +52,21 @@ export default function Navbar() {
                   </Link>
                 </div>
               </Button>
+              <Sheet>
+                <SheetTrigger className="md:hidden">
+                  <RiMenu3Line size={24} />
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle className="text-start mb-4">
+                      IRON KEYS
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div>
+                    <NavItems />
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>

@@ -25,13 +25,13 @@ export default function ProductItem({ product }: FeaturedProductProps) {
   const navigate = useNavigate();
   return (
     <Card>
-      <img
-        src={product.image}
-        alt={product.title}
-        className="w-full h-48 object-cover mb-4 rounded-t-md"
-      />
-      <CardHeader className=" pt-0">
-        <CardTitle>{product.title}</CardTitle>
+      <CardHeader className=" p-0">
+        <img
+          src={product.image}
+          alt={product.title}
+          className="w-full h-48 object-cover mb-4 rounded-t-md"
+        />
+        <CardTitle className="px-6">{product.title}</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="text-gray-700 mb-2">{product.brand}</p>
@@ -45,7 +45,7 @@ export default function ProductItem({ product }: FeaturedProductProps) {
           readOnly
         />
       </CardContent>
-      <CardFooter className="">
+      <CardFooter>
         <Button onClick={() => navigate(`/products/${product._id}`)}>
           See Details
         </Button>

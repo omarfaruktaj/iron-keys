@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { addProductToCart } from "@/redux/features/cart/cartSlice";
+import { addProductToCart, selectCart } from "@/redux/features/cart/cartSlice";
 import { useGetSingleProductQuery } from "@/redux/features/products/product-api";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Rating } from "@smastrom/react-rating";
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
@@ -9,8 +9,8 @@ import { useParams, useNavigate } from "react-router-dom";
 const ProductDetailsPage = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
+  const cart = useAppSelector(selectCart);
 
   const {
     data: product,
@@ -18,22 +18,19 @@ const ProductDetailsPage = () => {
     error,
   } = useGetSingleProductQuery(productId!);
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+  const cartItem = cart.find((item) => item.product._id === productId);
 
-  if (error) {
-    return <p>Something went very wrong!</p>;
-  }
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p className="text-red-500">Something went wrong!</p>;
+  if (!product) return <p>Product not found.</p>;
 
-  if (!product) {
-    return <p>Product not found.</p>;
-  }
+  const isOutOfStock = product.availableQuantity === 0;
+  const isMaxQuantityReached = cartItem?.quantity === product.availableQuantity;
 
   return (
     <div className="min-h-svh">
       <Button
-        variant={"ghost"}
+        variant="ghost"
         className="flex items-center mb-4 cursor-pointer"
         onClick={() => navigate(-1)}
       >
@@ -57,7 +54,7 @@ const ProductDetailsPage = () => {
               Available Quantity: {product.availableQuantity}
             </div>
             <div className="text-muted-foreground mb-2">${product.price}</div>
-            <div className=" mb-4">
+            <div className="mb-4">
               <Rating
                 style={{ maxWidth: 120 }}
                 value={product.rating ?? 0}
@@ -69,10 +66,15 @@ const ProductDetailsPage = () => {
             </div>
             <Button
               onClick={() => dispatch(addProductToCart(product))}
-              disabled={product.availableQuantity === 0}
+              disabled={isOutOfStock || isMaxQuantityReached}
             >
-              {product.availableQuantity === 0 ? "Out of Stock" : "Add to Cart"}
+              {isOutOfStock ? "Out of Stock" : "Add to Cart"}
             </Button>
+            {isMaxQuantityReached && (
+              <p className="text-red-500 mt-2">
+                You’ve reached the limit for this item in your cart.
+              </p>
+            )}
           </div>
         </div>
       </div>

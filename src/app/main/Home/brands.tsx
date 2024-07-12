@@ -13,8 +13,11 @@ export default function Brands() {
         Featured Brands
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-        {brands.map((brand) => (
-          <div className="bg-primary-foreground p-6 rounded-lg shadow flex items-center justify-center">
+        {brands.map((brand, index) => (
+          <div
+            key={index}
+            className="bg-primary-foreground p-6 rounded-lg shadow flex items-center justify-center"
+          >
             <img src={brand} alt="Brand 1" className="h-16" />
           </div>
         ))}

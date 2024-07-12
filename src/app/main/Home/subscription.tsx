@@ -7,7 +7,7 @@ const Subscription = () => {
   };
 
   return (
-    <section className="my-12 bg-white">
+    <section className="my-28 bg-white">
       <div className="text-center">
         <h2 className="text-3xl font-semibold  mb-4">
           Subscribe to Our Newsletter

@@ -33,6 +33,11 @@ export interface QueryString {
   [key: string]: any;
 }
 
+export interface Order {
+  product: string;
+  quantity: number;
+}
+
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getFeaturedProducts: builder.query<Data, null>({
@@ -53,7 +58,7 @@ const productApi = baseApi.injectEndpoints({
     getProducts: builder.query<Data, QueryString>({
       query: ({
         page = 1,
-        limit = 10,
+        limit = 12,
         searchTerm = "",
         minPrice,
         maxPrice,
@@ -82,6 +87,16 @@ const productApi = baseApi.injectEndpoints({
         return result ? [{ type: "Product", id: result._id }] : [];
       },
     }),
+    handleOrder: builder.mutation<{ message: string }, Order[]>({
+      query: (data) => ({
+        url: "/products/order",
+        method: "PUT",
+        body: { data },
+      }),
+      transformResponse: (response: { data: { message: string } }) =>
+        response.data,
+      invalidatesTags: ["Product"],
+    }),
   }),
 });
 
@@ -89,4 +104,5 @@ export const {
   useGetFeaturedProductsQuery,
   useGetProductsQuery,
   useGetSingleProductQuery,
+  useHandleOrderMutation,
 } = productApi;
