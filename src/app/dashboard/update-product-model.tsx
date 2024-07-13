@@ -1,6 +1,5 @@
 import ProductForm from "@/components/product-form";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import Loading from "@/components/ui/loading";
 import {
   Product,
   useGetSingleProductQuery,
@@ -18,13 +17,13 @@ export default function UpdateProductModel({
   onSubmit,
   onClose,
 }: UpdateProductModel) {
-  const { data, isLoading } = useGetSingleProductQuery(productId);
+  const { data } = useGetSingleProductQuery(productId);
   const onOpenChange = (open: boolean) => {
     if (!open) {
       onClose();
     }
   };
-  if (isLoading) return <Loading />;
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="">
