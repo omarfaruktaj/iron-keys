@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
+import { useSpring, animated } from "react-spring";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -32,17 +33,32 @@ export default function Contact() {
   });
 
   function onSubmit() {
-    toast.success("Thank You for you message");
+    toast.success("Thank you for your message!");
     form.reset();
   }
 
-  return (
-    <div className="px-4 py-10 ">
-      <h1 className="text-4xl font-bold text-center  mb-8">Contact Us</h1>
+  const formAnimation = useSpring({
+    opacity: 1,
+    transform: "translateY(0)",
+    from: { opacity: 0, transform: "translateY(20px)" },
+  });
 
+  const contactInfoAnimation = useSpring({
+    opacity: 1,
+    transform: "translateY(0)",
+    from: { opacity: 0, transform: "translateY(20px)" },
+    delay: 200,
+  });
+
+  return (
+    <div className="px-4 py-10">
+      <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className=" shadow-lg rounded-lg p-8 mb-8 md:mb-0">
-          <h2 className="text-2xl font-semibold  mb-4">Get in Touch</h2>
+        <animated.div
+          style={formAnimation}
+          className="shadow-lg rounded-lg p-8 mb-8 md:mb-0"
+        >
+          <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <div>
@@ -106,13 +122,14 @@ export default function Contact() {
               </div>
             </form>
           </Form>
-        </div>
+        </animated.div>
 
-        <div className="flex items-center justify-center px-4">
+        <animated.div
+          style={contactInfoAnimation}
+          className="flex items-center justify-center px-4"
+        >
           <div>
-            <h2 className="text-2xl font-semibold  mb-4">
-              Contact Information
-            </h2>
+            <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
             <p className="text-gray-700 mb-6">
               If you have any questions, feel free to reach out to us through
               the following channels:
@@ -132,7 +149,7 @@ export default function Contact() {
               </li>
             </ul>
           </div>
-        </div>
+        </animated.div>
       </div>
     </div>
   );

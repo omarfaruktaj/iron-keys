@@ -1,21 +1,41 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useSpring, animated } from "react-spring";
 
 const AboutUs = () => {
+  const titleAnimation = useSpring({
+    opacity: 1,
+    y: 0,
+    from: { opacity: 0, y: -20 },
+  });
+  const contentAnimation = useSpring({
+    opacity: 1,
+    y: 0,
+    from: { opacity: 0, y: 20 },
+    delay: 200,
+  });
+  const buttonAmination = useSpring({
+    opacity: 1,
+    scale: 1,
+    from: { opacity: 0, scale: 0.8 },
+    delay: 400,
+  });
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-scree py-10">
-      <div className="text-center mb-12">
+    <div className="flex flex-col items-center justify-center min-h-screen py-10">
+      <animated.div style={titleAnimation} className="text-center mb-12">
         <h1 className="text-5xl font-bold">About Us</h1>
         <p className="mt-4 text-lg opacity-80">
           Passionate about mechanical keyboards and bringing you the best typing
           experience!
         </p>
-      </div>
+      </animated.div>
 
-      <div className="max-w-4xl  rounded-lg p-8 ">
-        <h2 className="text-3xl font-semibold mb-6 text-center ">
-          Our Journey
-        </h2>
+      <animated.div
+        style={contentAnimation}
+        className="max-w-4xl rounded-lg p-8"
+      >
+        <h2 className="text-3xl font-semibold mb-6 text-center">Our Journey</h2>
         <p className="text-lg mb-4">
           At Iron Keys, we started with a simple goal: to provide enthusiasts
           with the best mechanical keyboards and accessories available. Our love
@@ -43,13 +63,13 @@ const AboutUs = () => {
           Join us on this journey of discovery and excellence, and let’s make
           every keystroke count!
         </p>
-      </div>
+      </animated.div>
 
-      <div className=" flex space-x-6">
+      <animated.div style={buttonAmination} className="flex space-x-6">
         <Button asChild>
-          <Link to={"/products"}>Shop Now</Link>
+          <Link to="/products">Shop Now</Link>
         </Button>
-      </div>
+      </animated.div>
     </div>
   );
 };
