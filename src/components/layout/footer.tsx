@@ -17,7 +17,7 @@ export default function Footer() {
           <p>
             Phone:{" "}
             <a href="tel:+1234567890" className="hover:underline">
-              +123 456 7890
+              +88017844548558
             </a>
           </p>
         </div>

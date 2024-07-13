@@ -9,6 +9,7 @@ import Success from "@/app/main/chackout/success";
 import Dashboard from "@/app/dashboard/dashboard";
 import CreateProdct from "@/app/dashboard/create-product";
 import AboutUs from "@/app/main/about/about";
+import Contact from "@/app/contact/contact";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutUs />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },
