@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import bgImage from "@/assets/bannerbg.png";
+// import bgImage from "@/assets/bannerbg.png";
+import banner from "@/assets/banner.png";
 import { Link } from "react-router-dom";
 import { useSpring, animated } from "react-spring";
 
@@ -29,7 +30,7 @@ export default function Banner() {
       <div
         className="bg-cover bg-center h-96 flex items-center justify-center text-white rounded-2xl mt-2 mb-8"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url(${bgImage})`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),url(${banner})`,
         }}
       >
         <div className="text-center">

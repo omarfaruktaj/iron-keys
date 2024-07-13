@@ -27,7 +27,7 @@ export default function ServiceCard({
 
   return (
     <animated.div style={animation}>
-      <Card className="shadow-md transition-transform transform hover:scale-105">
+      <Card className="shadow-md h-full transition-transform transform hover:scale-105">
         <CardHeader className="flex flex-col items-center text-center p-6">
           {icon}
           <CardTitle className="text-lg font-semibold">{title}</CardTitle>
