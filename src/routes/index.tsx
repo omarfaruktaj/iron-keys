@@ -8,6 +8,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Success from "@/app/main/chackout/success";
 import Dashboard from "@/app/dashboard/dashboard";
 import CreateProdct from "@/app/dashboard/create-product";
+import AboutUs from "@/app/main/about/about";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/products/create",
         element: <CreateProdct />,
+      },
+      {
+        path: "/about",
+        element: <AboutUs />,
       },
     ],
   },
