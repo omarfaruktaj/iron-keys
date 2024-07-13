@@ -34,8 +34,8 @@ This is the frontend for the Mechanical Keyboard Shop, an e-commerce website exc
 1. **Clone the repository**:
 
    ```sh
-   git clone https://github.com/yourusername/mechanical-keyboard-shop.git
-   cd mechanical-keyboard-shop/frontend
+   git clone https://github.com/omarfaruktaj/iron-keys.git iron-keys
+   cd iron-keys
    ```
 
 2. **Install dependencies**:
