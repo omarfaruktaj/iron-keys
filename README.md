@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is the frontend for the Mechanical Keyboard Shop, an e-commerce website exclusively for mechanical keyboards. The frontend is built with React, Vite, TypeScript, Redux, RTK Query, and Tailwind CSS.
+This is the frontend for the Iron Keys, an e-commerce website exclusively for mechanical keyboards. The frontend is built with React, Vite, TypeScript, Redux, RTK Query, and Tailwind CSS.
 
 ## Features
 
@@ -13,6 +13,10 @@ This is the frontend for the Mechanical Keyboard Shop, an e-commerce website exc
 - **Checkout Page**: Collects user details and processes payments.
 - **About Us Page**: Information about the store.
 - **Contact Us Page**: Contact details and a form to reach out.
+
+## Live
+
+Check out the live site: [Iron Keys](https://iron-keys-of.vercel.app/)
 
 ## Technology Stack
 
