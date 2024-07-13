@@ -7,6 +7,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Autoplay from "embla-carousel-autoplay";
 
 import customer1 from "@/assets/customers/customer-1.jpg";
 import customer2 from "@/assets/customers/customer-2.jpg";
@@ -93,6 +94,11 @@ export default function Reviews() {
         opts={{
           align: "start",
         }}
+        plugins={[
+          Autoplay({
+            delay: 2000,
+          }),
+        ]}
         className="w-full  "
       >
         <CarouselContent>

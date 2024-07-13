@@ -32,6 +32,7 @@ export default function Benefits() {
         "Ideal for gamers with features like n-key rollover and anti-ghosting, ensuring every keystroke is registered accurately in intense gaming sessions.",
     },
   ];
+
   return (
     <section className="my-12 bg-primary-foreground py-12 rounded-2xl">
       <h2 className="text-3xl text-center font-semibold leading-tight mb-8">

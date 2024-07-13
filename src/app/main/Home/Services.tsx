@@ -1,10 +1,6 @@
 import { FaShippingFast, FaHeadset, FaTags } from "react-icons/fa";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
+import ServiceCard from "@/components/ui/service-card";
 
 export default function Services() {
   const servicesData = [
@@ -28,13 +24,12 @@ export default function Services() {
     <section className="my-12">
       <div className="grid grid-cols-1  md:grid-cols-3  gap-6">
         {servicesData.map((service, index) => (
-          <Card key={index}>
-            <CardHeader className="flex flex-col items-center">
-              {service.icon}
-              <CardTitle>{service.title}</CardTitle>
-              <CardDescription>{service.description}</CardDescription>
-            </CardHeader>
-          </Card>
+          <ServiceCard
+            key={index}
+            icon={service.icon}
+            title={service.title}
+            description={service.description}
+          />
         ))}
       </div>
     </section>

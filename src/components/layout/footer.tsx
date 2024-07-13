@@ -24,12 +24,12 @@ export default function Footer() {
         <div className="mb-6 md:mb-0">
           <h3 className="text-2xl font-bold mb-4">Quick Links</h3>
           <div className="flex flex-col space-y-2">
-            <Link to="/" className="hover:underline transition duration-300">
+            {/* <Link to="/" className="hover:underline transition duration-300">
               Privacy Policy
             </Link>
             <Link to="/" className="hover:underline transition duration-300">
               Terms of Service
-            </Link>
+            </Link> */}
             <Link
               to="/contact"
               className="hover:underline transition duration-300"
@@ -49,21 +49,21 @@ export default function Footer() {
           <div className="flex flex-col justify-center items-start  space-y-4">
             <a
               href="https://facebook.com"
-              className="hover:text-blue-500 transition duration-300 flex justify-start text-xl gap-2"
+              className="flex items-center hover:text-blue-500 transition duration-300  gap-2"
             >
-              <FaFacebook size={24} /> Facebook
+              <FaFacebook size={16} /> Facebook
             </a>
             <a
               href="https://twitter.com"
-              className="hover:text-blue-400 transition duration-300 flex items-center text-xl gap-2"
+              className="flex items-center hover:text-blue-400 transition duration-300  gap-2"
             >
-              <FaXTwitter size={24} /> Twitter
+              <FaXTwitter size={16} /> Twitter
             </a>
             <a
               href="https://instagram.com"
-              className="hover:text-pink-600 transition duration-300 flex  text-xl gap-2"
+              className="flex items-center hover:text-pink-600 transition duration-300  gap-2"
             >
-              <FaInstagram size={24} /> Instagram
+              <FaInstagram size={16} /> Instagram
             </a>
           </div>
         </div>

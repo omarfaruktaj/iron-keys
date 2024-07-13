@@ -1,6 +1,6 @@
 import Banner from "./banner";
 import Services from "./Services";
-import HomeFeaturedProdcuts from "./hore-featured-products";
+import HomeFeaturedProdcuts from "./home-featured-products";
 import Brands from "./brands";
 import Reviews from "./reviews";
 import Benefits from "./benefits";

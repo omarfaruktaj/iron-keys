@@ -8,7 +8,7 @@ import brand6 from "@/assets/brands/brand-6.png";
 export default function Brands() {
   const brands = [brand1, brand2, brand3, brand4, brand5, brand6];
   return (
-    <div className="my-12">
+    <div className="my-12 ">
       <h2 className="text-3xl font-semibold mb-8 text-center">
         Featured Brands
       </h2>
@@ -16,7 +16,7 @@ export default function Brands() {
         {brands.map((brand, index) => (
           <div
             key={index}
-            className="bg-primary-foreground p-6 rounded-lg shadow flex items-center justify-center"
+            className="bg-primary-foreground p-6 rounded-lg shadow flex items-center justify-center transition-transform transform hover:scale-105"
           >
             <img src={brand} alt="Brand 1" className="h-16" />
           </div>
