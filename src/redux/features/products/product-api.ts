@@ -145,6 +145,20 @@ const productApi = baseApi.injectEndpoints({
         invalidatesTags: ["Product"],
       }
     ),
+    updateProduct: builder.mutation<
+      { product: Product },
+      { product: Omit<Product, "_id">; productId: string }
+    >({
+      query: ({ product, productId }) => ({
+        url: `/products/${productId}`,
+        method: "PUT",
+        body: product,
+      }),
+      transformResponse: (response: {
+        data: { message: string; product: Product };
+      }) => response.data,
+      invalidatesTags: ["Product"],
+    }),
   }),
 });
 
@@ -155,4 +169,5 @@ export const {
   useHandleOrderMutation,
   useDeleteProductMutation,
   useCreateProductMutation,
+  useUpdateProductMutation,
 } = productApi;

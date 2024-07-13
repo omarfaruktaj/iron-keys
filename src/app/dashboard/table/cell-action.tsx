@@ -1,6 +1,7 @@
 import {
   Product,
   useDeleteProductMutation,
+  useUpdateProductMutation,
 } from "@/redux/features/products/product-api";
 import { MoreHorizontal } from "lucide-react";
 
@@ -12,11 +13,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import AlertModal from "@/components/alert-model";
 import toast from "react-hot-toast";
+import UpdateProductModel from "../update-product-model";
 
 interface CellActionProps {
   data: Product;
@@ -24,8 +26,9 @@ interface CellActionProps {
 
 export default function CellAction({ data }: CellActionProps) {
   const [openModel, setOpenModel] = useState(false);
+  const [openUpdateModel, setOpenUpdateModel] = useState(false);
   const [deleteProduct] = useDeleteProductMutation();
-  const navigate = useNavigate();
+  const [updateProduct] = useUpdateProductMutation();
 
   const handleDelete = async () => {
     try {
@@ -36,12 +39,31 @@ export default function CellAction({ data }: CellActionProps) {
     }
   };
 
+  const handleUpdateProduct = async (updatedProduct: Omit<Product, "_id">) => {
+    try {
+      await updateProduct({
+        product: updatedProduct,
+        productId: data._id,
+      }).unwrap();
+      toast.success("Product successfull updated.");
+      setOpenUpdateModel(false);
+    } catch (error) {
+      toast.error("Somethin want very wrong!");
+    }
+  };
+
   return (
     <>
       <AlertModal
         isOpen={openModel}
         onClose={() => setOpenModel(false)}
         onConfirm={handleDelete}
+      />
+      <UpdateProductModel
+        productId={data._id}
+        isOpen={openUpdateModel}
+        onClose={() => setOpenUpdateModel(false)}
+        onSubmit={handleUpdateProduct}
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -53,13 +75,14 @@ export default function CellAction({ data }: CellActionProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
+            onClick={() => setOpenUpdateModel(true)}
             className="cursor-pointer"
-            onClick={() => navigate(`/dashboard/products/${data._id}`)}
           >
             <FaEdit size={16} />
 
             <span className="ml-2">Edit</span>
           </DropdownMenuItem>
+
           <DropdownMenuItem
             className="cursor-pointer"
             onClick={() => setOpenModel(true)}

@@ -21,11 +21,13 @@ interface FeaturedProductProps {
     rating?: number;
   };
 }
+
 export default function ProductItem({ product }: FeaturedProductProps) {
   const navigate = useNavigate();
+
   return (
-    <Card>
-      <CardHeader className=" p-0">
+    <Card className="flex flex-col h-full">
+      <CardHeader className="p-0">
         <img
           src={product.image}
           alt={product.title}
@@ -33,12 +35,13 @@ export default function ProductItem({ product }: FeaturedProductProps) {
         />
         <CardTitle className="px-6">{product.title}</CardTitle>
       </CardHeader>
-      <CardContent>
-        <p className="text-gray-700 mb-2">{product.brand}</p>
-        <p className="text-gray-700 mb-2">
+      <CardContent className="flex-grow">
+        <div className="text-gray-700 mb-2">{product.brand}</div>
+        <div className="text-gray-700 mb-2">
           {product.availableQuantity} in stock
-        </p>
-        <p className="text-gray-700 mb-2">${product.price}</p>
+        </div>
+
+        <div className="text-gray-700 mb-2">${product.price}</div>
         <Rating
           style={{ maxWidth: 120 }}
           value={product.rating ?? 0}

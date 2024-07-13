@@ -3,11 +3,12 @@ import { useGetFeaturedProductsQuery } from "../product-api";
 import ProductItem from "./product-item";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
+import Loading from "@/components/ui/loading";
 
 export default function FeaturedProducts() {
   const { isLoading, data, error } = useGetFeaturedProductsQuery(null);
   const naviagate = useNavigate();
-  if (isLoading) return <>Loadding...</>;
+  if (isLoading) return <Loading />;
 
   if (error) return <h3>No product found</h3>;
 

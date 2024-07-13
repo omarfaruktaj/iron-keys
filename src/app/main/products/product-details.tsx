@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Loading from "@/components/ui/loading";
 import { addProductToCart, selectCart } from "@/redux/features/cart/cartSlice";
 import { useGetSingleProductQuery } from "@/redux/features/products/product-api";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -20,7 +21,7 @@ const ProductDetailsPage = () => {
 
   const cartItem = cart.find((item) => item.product._id === productId);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loading />;
   if (error) return <p className="text-red-500">Something went wrong!</p>;
   if (!product) return <p>Product not found.</p>;
 

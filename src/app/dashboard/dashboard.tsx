@@ -4,12 +4,13 @@ import { useGetProductsQuery } from "@/redux/features/products/product-api";
 import { DataTable } from "./table/data-table";
 import { columns } from "./table/columns";
 import { useNavigate } from "react-router-dom";
+import Loading from "@/components/ui/loading";
 
 export default function Dashboard() {
-  const { data, isLoading, error } = useGetProductsQuery({ limit: 16 });
+  const { data, isLoading, error } = useGetProductsQuery({ limit: 100 });
   const navigate = useNavigate();
 
-  if (isLoading) return <div>Loadding...</div>;
+  if (isLoading) return <Loading />;
 
   if (error || !data) return <div>No data found.</div>;
   const { products } = data;

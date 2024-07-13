@@ -3,7 +3,7 @@ import Navbar from "@/components/layout/navbar";
 import { selectCart } from "@/redux/features/cart/cartSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 export default function MainLayout() {
   const cart = useAppSelector(selectCart);
@@ -24,6 +24,11 @@ export default function MainLayout() {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [cart.length]);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div>

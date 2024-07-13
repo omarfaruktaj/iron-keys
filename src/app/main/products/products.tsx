@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import ProductPagination from "./product-pagination";
+import Loading from "@/components/ui/loading";
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams({
@@ -59,10 +60,7 @@ export default function Products() {
     page: currentPage,
     searchTerm: debouncedSearchTerm,
   });
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return <Loading />;
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= (data?.pagination?.totalPage ?? 0)) {
@@ -219,7 +217,7 @@ export default function Products() {
         </div>
 
         <div className="w-full md:w-3/4 md:px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayProducts()}
           </div>
         </div>

@@ -7,9 +7,9 @@ interface CartItemsProps {
   item: CardItemType;
   decreaseProductQuantity: (productId: string) => void;
   increaseProductQuantity: (productId: string) => void;
-
   onRemove: (productId: string) => void;
 }
+
 export default function CartItem({
   item,
   decreaseProductQuantity,
@@ -17,17 +17,17 @@ export default function CartItem({
   onRemove,
 }: CartItemsProps) {
   return (
-    <div className="flex items-center justify-between p-4 border-b border-gray-300">
+    <div className="flex flex-col md:flex-row items-center justify-between p-4 border-b border-gray-300">
       <img
         src={item.product.image}
         alt={item.product.title}
-        className="w-24 h-24 object-cover rounded-lg"
+        className="w-24 h-24 object-cover rounded-lg mb-4 md:mb-0"
       />
-      <div className="flex-1 ml-4">
+      <div className="flex-1 ml-0 md:ml-4 text-center md:text-left">
         <h3 className="text-lg font-bold">{item.product.title}</h3>
         <div className="text-gray-700">{item.product.brand}</div>
         <div className="text-gray-700">${item.product.price}</div>
-        <div className="flex items-center mt-2">
+        <div className="flex items-center justify-center md:justify-start mt-2">
           <Button
             variant={"ghost"}
             size={"icon"}
@@ -51,6 +51,7 @@ export default function CartItem({
         variant={"destructive"}
         size={"icon"}
         onClick={() => onRemove(item.product._id)}
+        className="mt-4 md:mt-0"
       >
         <FaTrashAlt size={20} />
       </Button>
